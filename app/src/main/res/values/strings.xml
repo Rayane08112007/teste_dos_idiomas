@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">NossoTCC</string>
+
+    <string-array name="paises">
+        <item>Venezuelanos</item>
+        <item>Haitianos</item>
+        <item>Cubanos</item>
+        <item>Bolivianos</item>
+        <item>Argentinos</item>
+        <item>China</item>
+        <item>Índia</item>
+        <item>Angola</item>
+    </string-array>
+
+    <string-array name="idiomas_array">
+        <item>Português</item>
+        <item>Inglês</item>
+        <item>Espanhol</item>
+    </string-array>
+
+</resources>
