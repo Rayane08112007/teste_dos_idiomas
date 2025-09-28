@@ -2,4 +2,15 @@
 <resources>
     <item name="drawerLayout" type="id" />
     <item name="navigationView" type="id" />
+    <item name="Metas" type="id" />
+    <item name="Chatbot" type="id" />
+    <item name="btnInvestimento" type="id" />
+    <item name="btnGastos" type="id" />
+    <item name="btnFacilitador" type="id" />
+    <item name="edtDescricao" type="id" />
+    <item name="edtValor" type="id" />
+    <item name="edtCategoria" type="id" />
+    <item name="edtData" type="id" />
+    <item name="edtFormaPagamento" type="id" />
+    <item name="edtObservacoes" type="id" />
 </resources>

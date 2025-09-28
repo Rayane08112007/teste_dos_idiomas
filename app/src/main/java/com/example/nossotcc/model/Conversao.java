@@ -10,9 +10,19 @@ public class Conversao {
         this.valorOriginal = valorOriginal;
     }
 
-    public String getMoedaOrigem() { return moedaOrigem; }
-    public double getValorOriginal() { return valorOriginal; }
-    public double getValorConvertido() { return valorConvertido; }
-    public void setValorConvertido(double valorConvertido) { this.valorConvertido = valorConvertido; }
-}
+    public String getMoedaOrigem() {
+        return moedaOrigem;
+    }
 
+    public double getValorOriginal() {
+        return valorOriginal;
+    }
+
+    public double getValorConvertido() {
+        return valorConvertido;
+    }
+
+    public void setValorConvertido(double valorConvertido) {
+        this.valorConvertido = valorConvertido;
+    }
+}

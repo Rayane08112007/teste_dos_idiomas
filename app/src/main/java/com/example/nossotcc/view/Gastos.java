@@ -1,7 +1,6 @@
 package com.example.nossotcc.view;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -15,9 +14,9 @@ import com.example.nossotcc.model.Gasto;
 
 import java.util.ArrayList;
 
-public class Planilhas extends AppCompatActivity {
+public class Gastos extends AppCompatActivity {
 
-    private EditText edtDescricao, edtValor, edtCategoria, edtData, edtForma, edtObservacoes, edtMesConsulta;
+    private EditText edtDescricao, edtValor, edtCategoria, edtData, edtFormaPagamento, edtObservacoes, edtMesConsulta;
     private Button btnSalvar, btnConsultar;
     private TextView tvResultado;
     private GastoController controller;
@@ -25,48 +24,33 @@ public class Planilhas extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_planilhas);
+        setContentView(R.layout.activity_gastos);
 
+        edtDescricao = findViewById(R.id.edtDescricao);
+        edtValor = findViewById(R.id.edtValor);
+        edtCategoria = findViewById(R.id.edtCategoria);
+        edtData = findViewById(R.id.edtData);
+        edtFormaPagamento = findViewById(R.id.edtFormaPagamento);
+        edtObservacoes = findViewById(R.id.edtObservacoes);
 
-//        edtDescricao = findViewById(R.id.edtDescricao); //coloca isso por favor
-//        edtValor = findViewById(R.id.edtValor);
-//        edtCategoria = findViewById(R.id.edtCategoria);
-//        edtData = findViewById(R.id.edtData);
-//        edtForma = findViewById(R.id.edtFormaPagamento);
-//        edtObservacoes = findViewById(R.id.edtObservacoes);
-//
-//
-//        edtMesConsulta = findViewById(R.id.edtMesConsulta);
-//        btnConsultar = findViewById(R.id.btnConsultar);
-//
-//        btnSalvar = findViewById(R.id.btnSalvar);
-//        tvResultado = findViewById(R.id.tvResultado);
+        edtMesConsulta = findViewById(R.id.edtMesConsulta);
+        btnConsultar = findViewById(R.id.btnConsultar);
+
+        btnSalvar = findViewById(R.id.btnSalvar);
+        tvResultado = findViewById(R.id.tvResultado);
 
         controller = new GastoController(this);
 
-
-        btnSalvar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                salvarGasto();
-            }
-        });
-
-
-        btnConsultar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                consultarGastosPorMes();
-            }
-        });
+        btnSalvar.setOnClickListener(v -> salvarGasto());
+        btnConsultar.setOnClickListener(v -> consultarGastosPorMes());
     }
 
     private void salvarGasto() {
         String descricao = edtDescricao.getText().toString().trim();
         String valorStr = edtValor.getText().toString().trim();
         String categoria = edtCategoria.getText().toString().trim();
-        String data = edtData.getText().toString().trim(); // Formato YYYY-MM-DD
-        String forma = edtForma.getText().toString().trim();
+        String data = edtData.getText().toString().trim();
+        String forma = edtFormaPagamento.getText().toString().trim();
         String observacoes = edtObservacoes.getText().toString().trim();
 
         if (descricao.isEmpty() || valorStr.isEmpty() || data.isEmpty()) {
@@ -92,6 +76,7 @@ public class Planilhas extends AppCompatActivity {
 
         if (controller.inserir(gasto)) {
             Toast.makeText(this, "Gasto salvo!", Toast.LENGTH_SHORT).show();
+            limparCampos();
         } else {
             Toast.makeText(this, "Erro ao salvar gasto!", Toast.LENGTH_SHORT).show();
         }
@@ -127,5 +112,13 @@ public class Planilhas extends AppCompatActivity {
         resultado.append("Total do mês: R$ ").append(total);
         tvResultado.setText(resultado.toString());
     }
-}
 
+    private void limparCampos() {
+        edtDescricao.setText("");
+        edtValor.setText("");
+        edtCategoria.setText("");
+        edtData.setText("");
+        edtFormaPagamento.setText("");
+        edtObservacoes.setText("");
+    }
+}

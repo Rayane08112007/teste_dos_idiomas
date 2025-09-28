@@ -1,19 +1,27 @@
 package com.example.nossotcc.controller;
 
-import android.util.Log;
 import com.example.nossotcc.model.Conversao;
-import org.json.JSONObject;
-import java.io.IOException;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ConversorController {
 
-    private OkHttpClient client;
+    private Map<String, Double> taxasConversao;
 
     public ConversorController() {
-        client = new OkHttpClient();
+        taxasConversao = new HashMap<>();
+        taxasConversao.put("USD", 5.2);
+        taxasConversao.put("EUR", 5.7);
+        taxasConversao.put("VES", 0.0003);
+        taxasConversao.put("HTG", 0.05);
+        taxasConversao.put("CUP", 0.21);
+        taxasConversao.put("BOB", 0.72);
+        taxasConversao.put("ARS", 0.028);
+        taxasConversao.put("CNY", 0.76);
+        taxasConversao.put("INR", 0.063);
+        taxasConversao.put("AOA", 0.0098);
+        // adicione outras moedas que desejar
     }
 
     public interface ConversaoListener {
@@ -21,37 +29,15 @@ public class ConversorController {
         void onErro(String mensagem);
     }
 
-    public void converterParaReal(Conversao conversao, ConversaoListener listener) {
-        new Thread(() -> {
-            try {
-                String url = "https://api.exchangerate.host/convert?from="
-                        + conversao.getMoedaOrigem() + "&to=BRL&amount=" + conversao.getValorOriginal();
+    public void converter(Conversao conversao, ConversaoListener listener) {
+        Double taxa = taxasConversao.get(conversao.getMoedaOrigem());
+        if (taxa == null) {
+            listener.onErro("Moeda não suportada");
+            return;
+        }
 
-                Request request = new Request.Builder().url(url).build();
-                Response response = client.newCall(request).execute();
-
-                if (response.isSuccessful() && response.body() != null) {
-                    String json = response.body().string();
-                    Log.d("Conversor", "JSON recebido: " + json);
-
-                    JSONObject obj = new JSONObject(json);
-                    if (obj.has("result") && !obj.isNull("result")) {
-                        double valorConvertido = obj.getDouble("result");
-                        conversao.setValorConvertido(valorConvertido);
-                        listener.onSucesso(conversao);
-                    } else {
-                        listener.onErro("Erro ao processar a resposta da API");
-                    }
-                } else {
-                    listener.onErro("Erro HTTP: " + response.code());
-                }
-
-            } catch (IOException e) {
-                listener.onErro("Erro de conexão: " + e.getMessage());
-            } catch (Exception e) {
-                listener.onErro("Erro inesperado: " + e.getMessage());
-            }
-        }).start();
+        double valorConvertido = conversao.getValorOriginal() * taxa;
+        conversao.setValorConvertido(valorConvertido);
+        listener.onSucesso(conversao);
     }
 }
-

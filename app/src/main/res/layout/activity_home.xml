@@ -104,78 +104,78 @@
                         android:textStyle="bold" />
                 </LinearLayout>
 
-                <EditText
+                <TextView
                     android:id="@+id/dsjValor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:drawable/edit_text"
                     android:hint="Valor convertido"
-                    android:inputType="numberDecimal"
                     android:padding="12dp"
                     android:textSize="16sp" />
+
 
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-<!--        <Button-->
-<!--            android:id="@+id/Metas"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_margin="8dp"-->
-<!--            android:backgroundTint="#4A90E2"-->
-<!--            android:text="Metas"-->
-<!--            app:layout_constraintEnd_toStartOf="@id/Chatbot"-->
-<!--            app:layout_constraintHorizontalWeight="1"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/Moeda" />-->
+        <Button
+            android:id="@+id/Metas"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:backgroundTint="#4A90E2"
+            android:text="Metas"
+            app:layout_constraintEnd_toStartOf="@id/Chatbot"
+            app:layout_constraintHorizontalWeight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/Moeda" />
 
-<!--        <Button-->
-<!--            android:id="@+id/Chatbot"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_margin="8dp"-->
-<!--            android:backgroundTint="#4A90E2"-->
-<!--            android:text="ChatBot"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintHorizontalWeight="1"-->
-<!--            app:layout_constraintStart_toEndOf="@id/Metas"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/Moeda" />-->
+        <Button
+            android:id="@+id/Chatbot"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:backgroundTint="#4A90E2"
+            android:text="ChatBot"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontalWeight="1"
+            app:layout_constraintStart_toEndOf="@id/Metas"
+            app:layout_constraintTop_toBottomOf="@id/Moeda" />
 
-<!--        <Button-->
-<!--            android:id="@+id/btnInvestimento"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_margin="8dp"-->
-<!--            android:backgroundTint="#4A90E2"-->
-<!--            android:text="Investimento"-->
-<!--            app:layout_constraintEnd_toStartOf="@id/btnGastos"-->
-<!--            app:layout_constraintHorizontalWeight="1"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/Metas" />-->
+        <Button
+            android:id="@+id/btnInvestimento"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:backgroundTint="#4A90E2"
+            android:text="Investimento"
+            app:layout_constraintEnd_toStartOf="@id/btnGastos"
+            app:layout_constraintHorizontalWeight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/Metas" />
 
-<!--        <Button-->
-<!--            android:id="@+id/btnGastos"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_margin="8dp"-->
-<!--            android:backgroundTint="#4A90E2"-->
-<!--            android:text="Gastos"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintHorizontalWeight="1"-->
-<!--            app:layout_constraintStart_toEndOf="@id/btnInvestimento"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/Metas" />-->
+        <Button
+            android:id="@+id/btnGastos"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:backgroundTint="#4A90E2"
+            android:text="Gastos"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontalWeight="1"
+            app:layout_constraintStart_toEndOf="@id/btnInvestimento"
+            app:layout_constraintTop_toBottomOf="@id/Metas" />
 
-<!--        <Button-->
-<!--            android:id="@+id/btnFacilitador"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_margin="8dp"-->
-<!--            android:backgroundTint="#4A90E2"-->
-<!--            android:text="Facilitador de Burocracia"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/btnGastos" />-->
+        <Button
+            android:id="@+id/btnFacilitador"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:backgroundTint="#4A90E2"
+            android:text="Facilitador de Burocracia"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnGastos" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,5 @@
 package com.example.nossotcc.view;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,61 +10,43 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.drawerlayout.widget.DrawerLayout;
-
+import androidx.cardview.widget.CardView;
 
 import com.example.nossotcc.R;
-
 import com.example.nossotcc.controller.ConversorController;
-import com.example.nossotcc.controller.GastoController;
 import com.example.nossotcc.model.Conversao;
-import com.example.nossotcc.model.Gasto;
-import com.google.android.material.navigation.NavigationView;
-
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-
-import java.util.ArrayList;
 
 public class Home extends AppCompatActivity {
 
-
     private EditText etValor;
-    private Button btnConverter;
     private TextView tvResultado;
-    private String moedaOrigem;
+    private Button btnConverter;
+    private String moedaOrigemUsuario;
 
-
-
-    private DrawerLayout drawerLayout;
-    private Toolbar toolbar;
-    private NavigationView navigationView;
-    private PieChart pieChart;
-    private GastoController gastoController;
-
-    //parte do conversor
-
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-
-        drawerLayout = findViewById(R.id.drawerLayout);
-        toolbar = findViewById(R.id.toolbar);
-        navigationView = findViewById(R.id.navigationView);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
         etValor = findViewById(R.id.Valor);
-        btnConverter = findViewById(R.id.btnConverter);
         tvResultado = findViewById(R.id.dsjValor);
+        btnConverter = findViewById(R.id.btnConverter);
+
+        Button btnMetas = findViewById(R.id.Metas);
+        Button btnChatbot = findViewById(R.id.Chatbot);
+        Button btnInvestimento = findViewById(R.id.btnInvestimento);
+        Button btnGastos = findViewById(R.id.btnGastos);
+        Button btnFacilitador = findViewById(R.id.btnFacilitador);
+
+
+        // pega a moeda do usuário salva no cadastro
+        SharedPreferences prefs = getSharedPreferences("user_prefs", MODE_PRIVATE);
+        moedaOrigemUsuario = prefs.getString("moeda_origem", "USD");
 
         ConversorController conversorController = new ConversorController();
-        String moedaOrigem = "USD";
 
         btnConverter.setOnClickListener(v -> {
             String valorStr = etValor.getText().toString().trim();
@@ -74,13 +55,21 @@ public class Home extends AppCompatActivity {
                 return;
             }
 
-            double valor = Double.parseDouble(valorStr);
-            Conversao conversao = new Conversao(moedaOrigem, valor);
+            double valor;
+            try {
+                valor = Double.parseDouble(valorStr);
+            } catch (NumberFormatException e) {
+                Toast.makeText(this, "Valor inválido", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-            conversorController.converterParaReal(conversao, new ConversorController.ConversaoListener() {
+            Conversao conversao = new Conversao(moedaOrigemUsuario, valor);
+
+            conversorController.converter(conversao, new ConversorController.ConversaoListener() {
                 @Override
                 public void onSucesso(Conversao conv) {
-                    runOnUiThread(() -> tvResultado.setText(String.format("%.2f BRL", conv.getValorConvertido())));
+                    runOnUiThread(() -> tvResultado.setText(String.format("%.2f %s = %.2f BRL",
+                            conv.getValorOriginal(), conv.getMoedaOrigem(), conv.getValorConvertido())));
                 }
 
                 @Override
@@ -90,38 +79,31 @@ public class Home extends AppCompatActivity {
             });
         });
 
+        btnMetas.setOnClickListener(v -> {
+            Intent intent = new Intent(Home.this, Metas.class);
+            startActivity(intent);
+        });
 
-        //------ parte do grafico ---------
+        btnChatbot.setOnClickListener(v -> {
+            Intent intent = new Intent(Home.this, ChatBot.class);
+            startActivity(intent);
+        });
 
-//        pieChart = findViewById(R.id.pieChart); //coloca isso tbm por favor O pieChart.invalidate
-//        // serve para redesenhar o gráfico na tela depois que você altera os dados dele.
-//        gastoController = new GastoController(this);
-//        carregarGrafico();
+        btnInvestimento.setOnClickListener(v -> {
+            Intent intent = new Intent(Home.this, Investimento.class);
+            startActivity(intent);
+        });
 
+        btnGastos.setOnClickListener(v -> {
+            Intent intent = new Intent(Home.this, Gastos.class);
+            startActivity(intent);
+        });
 
-//        Button btnGastos = findViewById(R.id.btnGastos);
-//        btnGastos.setOnClickListener(v -> {
-//            Intent intent = new Intent(Home.this, Planilhas.class);
-//            startActivity(intent);
-//        });
+        btnFacilitador.setOnClickListener(v -> {
+            Intent intent = new Intent(Home.this, Facilitador.class);
+            startActivity(intent);
+        });
     }
 
 
-    private void carregarGrafico() {
-        ArrayList<Gasto> lista = gastoController.listar();
-        ArrayList<PieEntry> entries = new ArrayList<>();
-
-        for (Gasto g : lista) {
-            if (g.getValor() > 0) {
-                entries.add(new PieEntry((float) g.getValor(), g.getDescricao()));
-            }
-        }
-
-        if (!entries.isEmpty()) {
-            PieDataSet dataSet = new PieDataSet(entries, "Gastos");
-            PieData data = new PieData(dataSet);
-            pieChart.setData(data);
-            pieChart.invalidate();
-        }
-    }
 }

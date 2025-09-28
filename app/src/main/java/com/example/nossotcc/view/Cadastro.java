@@ -1,6 +1,5 @@
 package com.example.nossotcc.view;
 
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,7 +11,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 
 import com.example.nossotcc.R;
 import com.example.nossotcc.controller.UsuarioController;
@@ -44,7 +42,6 @@ public class Cadastro extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         nacionalidade.setAdapter(adapter);
 
-
         usuarioController = new UsuarioController(getApplicationContext());
 
         CheckBox[] generos = {feminino, masculino, naoInformar, outros};
@@ -56,9 +53,7 @@ public class Cadastro extends AppCompatActivity {
             });
         }
 
-
         cadastrar.setOnClickListener(view -> {
-
             String nomeTxt = nome.getText().toString().trim();
             String emailTxt = email.getText().toString().trim();
             String dataNascTxt = dataNasc.getText().toString().trim();
@@ -76,14 +71,11 @@ public class Cadastro extends AppCompatActivity {
             paisParaMoeda.put("Índia", "INR");
             paisParaMoeda.put("Angola", "AOA");
 
-
-
             String genero = "";
             if (feminino.isChecked()) genero = "Feminino";
             else if (masculino.isChecked()) genero = "Masculino";
             else if (naoInformar.isChecked()) genero = "Prefiro não informar";
             else if (outros.isChecked()) genero = "Outros";
-
 
             if (nomeTxt.isEmpty() || emailTxt.isEmpty() || senhaTxt.isEmpty()) {
                 Toast.makeText(this, "Preencha todos os campos obrigatórios!", Toast.LENGTH_SHORT).show();
@@ -98,7 +90,6 @@ public class Cadastro extends AppCompatActivity {
                 return;
             }
 
-
             Usuario usuario = new Usuario();
             usuario.setUserNome(nomeTxt);
             usuario.setUserEmail(emailTxt);
@@ -109,8 +100,7 @@ public class Cadastro extends AppCompatActivity {
 
             if (usuarioController.incluir(usuario)) {
 
-              String paisSelecionado = nacionalidade.getSelectedItem().toString();
-              String moedaUsuario = paisParaMoeda.getOrDefault(paisSelecionado, "USD");
+                String moedaUsuario = paisParaMoeda.getOrDefault(nacionalidadeTxt, "USD");
 
                 SharedPreferences prefs = getSharedPreferences("user_prefs", MODE_PRIVATE);
                 SharedPreferences.Editor editor = prefs.edit();
@@ -118,17 +108,12 @@ public class Cadastro extends AppCompatActivity {
                 editor.putString("nomeUsuario", nome.getText().toString());
                 editor.apply();
 
-
                 Intent intent = new Intent(Cadastro.this, Home.class);
                 startActivity(intent);
-
-
                 finish();
             } else {
                 Toast.makeText(this, "Erro ao cadastrar usuário!", Toast.LENGTH_SHORT).show();
             }
-
-
         });
     }
 
@@ -146,6 +131,5 @@ public class Cadastro extends AppCompatActivity {
         outros = findViewById(R.id.Outros);
 
         cadastrar = findViewById(R.id.cadastrar);
-
     }
 }
