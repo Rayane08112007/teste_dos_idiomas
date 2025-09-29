@@ -14,7 +14,16 @@ import androidx.cardview.widget.CardView;
 
 import com.example.nossotcc.R;
 import com.example.nossotcc.controller.ConversorController;
+import com.example.nossotcc.controller.DadoController;
 import com.example.nossotcc.model.Conversao;
+import com.example.nossotcc.model.Dado;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Home extends AppCompatActivity {
 
@@ -22,6 +31,10 @@ public class Home extends AppCompatActivity {
     private TextView tvResultado;
     private Button btnConverter;
     private String moedaOrigemUsuario;
+
+    private PieChart pieChart;
+    private Button btnIrPlanilha;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,18 +44,18 @@ public class Home extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        etValor = findViewById(R.id.Valor);
-        tvResultado = findViewById(R.id.dsjValor);
+        etValor = findViewById(R.id.editTextValor);
+        tvResultado = findViewById(R.id.ValorResultado);
         btnConverter = findViewById(R.id.btnConverter);
 
-        Button btnMetas = findViewById(R.id.Metas);
-        Button btnChatbot = findViewById(R.id.Chatbot);
-        Button btnInvestimento = findViewById(R.id.btnInvestimento);
-        Button btnGastos = findViewById(R.id.btnGastos);
-        Button btnFacilitador = findViewById(R.id.btnFacilitador);
+//        Button btnMetas = findViewById(R.id.Metas);
+//        Button btnChatbot = findViewById(R.id.Chatbot);
+//        Button btnInvestimento = findViewById(R.id.btnInvestimento);
+//        Button btnGastos = findViewById(R.id.btnGastos);
+//        Button btnFacilitador = findViewById(R.id.btnFacilitador);
 
 
-        // pega a moeda do usuário salva no cadastro
+
         SharedPreferences prefs = getSharedPreferences("user_prefs", MODE_PRIVATE);
         moedaOrigemUsuario = prefs.getString("moeda_origem", "USD");
 
@@ -79,31 +92,57 @@ public class Home extends AppCompatActivity {
             });
         });
 
-        btnMetas.setOnClickListener(v -> {
-            Intent intent = new Intent(Home.this, Metas.class);
-            startActivity(intent);
-        });
+//        btnMetas.setOnClickListener(v -> {
+//            Intent intent = new Intent(Home.this, Metas.class);
+//            startActivity(intent);
+//        });
+//
+//        btnChatbot.setOnClickListener(v -> {
+//            Intent intent = new Intent(Home.this, ChatBot.class);
+//            startActivity(intent);
+//        });
+//
+//        btnInvestimento.setOnClickListener(v -> {
+//            Intent intent = new Intent(Home.this, Investimento.class);
+//            startActivity(intent);
+//        });
+//
+//        btnGastos.setOnClickListener(v -> {
+//            Intent intent = new Intent(Home.this, Planilha.class);
+//            startActivity(intent);
+//        });
+//
+//        btnFacilitador.setOnClickListener(v -> {
+//            Intent intent = new Intent(Home.this, Facilitador.class);
+//            startActivity(intent);
+//        });
 
-        btnChatbot.setOnClickListener(v -> {
-            Intent intent = new Intent(Home.this, ChatBot.class);
-            startActivity(intent);
-        });
+        pieChart = findViewById(R.id.pieChart);
 
-        btnInvestimento.setOnClickListener(v -> {
-            Intent intent = new Intent(Home.this, Investimento.class);
-            startActivity(intent);
-        });
 
-        btnGastos.setOnClickListener(v -> {
-            Intent intent = new Intent(Home.this, Gastos.class);
-            startActivity(intent);
-        });
+        carregarGrafico();
+    }
 
-        btnFacilitador.setOnClickListener(v -> {
-            Intent intent = new Intent(Home.this, Facilitador.class);
-            startActivity(intent);
-        });
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        carregarGrafico();
     }
 
 
-}
+    private void carregarGrafico() {
+        List<PieEntry> entries = new ArrayList<>();
+        for (Dado dado : DadoController.getDados()) {
+            entries.add(new PieEntry(dado.getValor(), dado.getNome()));
+        }
+
+        PieDataSet dataSet = new PieDataSet(entries, "Dados da Planilha");
+        PieData pieData = new PieData(dataSet);
+        pieChart.setData(pieData);
+        pieChart.invalidate(); // força atualização
+        pieChart.animateY(1000);
+    }
+    }
+
+

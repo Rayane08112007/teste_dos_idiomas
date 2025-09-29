@@ -5,8 +5,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -23,7 +23,7 @@ public class Cadastro extends AppCompatActivity {
 
     private EditText nome, email, dataNasc, senha, confSenha;
     private Spinner nacionalidade;
-    private CheckBox feminino, masculino, naoInformar, outros;
+    private RadioButton feminino, masculino, naoInformar, outros;
     private Button cadastrar;
     private UsuarioController usuarioController;
 
@@ -32,7 +32,18 @@ public class Cadastro extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro);
 
+
+
+        Button btnVoltar = findViewById(R.id.btnVoltar);
+        btnVoltar.setOnClickListener(v -> {
+            Intent intent = new Intent(Cadastro.this, Pagina01.class);
+            startActivity(intent);
+            finish();
+        });
+
+
         initComponents();
+
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this,
@@ -43,15 +54,6 @@ public class Cadastro extends AppCompatActivity {
         nacionalidade.setAdapter(adapter);
 
         usuarioController = new UsuarioController(getApplicationContext());
-
-        CheckBox[] generos = {feminino, masculino, naoInformar, outros};
-        for (CheckBox cb : generos) {
-            cb.setOnClickListener(v -> {
-                for (CheckBox other : generos) {
-                    if (other.getId() != v.getId()) other.setChecked(false);
-                }
-            });
-        }
 
         cadastrar.setOnClickListener(view -> {
             String nomeTxt = nome.getText().toString().trim();
@@ -71,11 +73,13 @@ public class Cadastro extends AppCompatActivity {
             paisParaMoeda.put("Índia", "INR");
             paisParaMoeda.put("Angola", "AOA");
 
+
             String genero = "";
             if (feminino.isChecked()) genero = "Feminino";
             else if (masculino.isChecked()) genero = "Masculino";
             else if (naoInformar.isChecked()) genero = "Prefiro não informar";
             else if (outros.isChecked()) genero = "Outros";
+
 
             if (nomeTxt.isEmpty() || emailTxt.isEmpty() || senhaTxt.isEmpty()) {
                 Toast.makeText(this, "Preencha todos os campos obrigatórios!", Toast.LENGTH_SHORT).show();
@@ -90,6 +94,7 @@ public class Cadastro extends AppCompatActivity {
                 return;
             }
 
+
             Usuario usuario = new Usuario();
             usuario.setUserNome(nomeTxt);
             usuario.setUserEmail(emailTxt);
@@ -99,7 +104,6 @@ public class Cadastro extends AppCompatActivity {
             usuario.setGenero(genero);
 
             if (usuarioController.incluir(usuario)) {
-
                 String moedaUsuario = paisParaMoeda.getOrDefault(nacionalidadeTxt, "USD");
 
                 SharedPreferences prefs = getSharedPreferences("user_prefs", MODE_PRIVATE);
