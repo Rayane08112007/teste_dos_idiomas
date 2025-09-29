@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -15,23 +16,40 @@
         android:layout_marginTop="60dp"
         android:text="CADASTRO"
         android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/btnVoltar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Inicio"
+        android:textSize="20dp"
+        android:backgroundTint="#CCCCCC"
+        android:textColor="#000000"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"/>
+
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/Titulo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_margin="16dp"
-            android:padding="20dp"
-            app:layout_constraintBottom_toTopOf="@id/cadastrar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            android:layout_height="wrap_content"
+            android:padding="20dp">
 
             <TextView
                 android:id="@+id/nome"
@@ -39,8 +57,8 @@
                 android:layout_height="wrap_content"
                 android:text="Nome:"
                 android:textColor="#000000"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <EditText
                 android:id="@+id/nome_campo"
@@ -49,10 +67,10 @@
                 android:layout_marginTop="8dp"
                 android:background="@drawable/fundo_campo"
                 android:hint="Informe seu nome"
-                android:padding="15dp"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:padding="12dp"
+                app:layout_constraintTop_toBottomOf="@id/nome"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/nome" />
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
                 android:id="@+id/email"
@@ -61,8 +79,8 @@
                 android:layout_marginTop="16dp"
                 android:text="E-mail:"
                 android:textColor="#000000"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/nome_campo" />
+                app:layout_constraintTop_toBottomOf="@id/nome_campo"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <EditText
                 android:id="@+id/email_campo"
@@ -72,10 +90,10 @@
                 android:background="@drawable/fundo_campo"
                 android:hint="Informe seu email"
                 android:inputType="textEmailAddress"
-                android:padding="15dp"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:padding="12dp"
+                app:layout_constraintTop_toBottomOf="@id/email"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/email" />
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
                 android:id="@+id/nasc"
@@ -84,8 +102,8 @@
                 android:layout_marginTop="16dp"
                 android:text="Data de Nascimento:"
                 android:textColor="#000000"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/email_campo" />
+                app:layout_constraintTop_toBottomOf="@id/email_campo"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <EditText
                 android:id="@+id/data_nasc"
@@ -94,11 +112,12 @@
                 android:layout_marginTop="8dp"
                 android:background="@drawable/fundo_campo"
                 android:hint="Nascimento"
-                android:inputType="date"
-                android:padding="15dp"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:focusable="false"
+                android:inputType="none"
+                android:padding="12dp"
+                app:layout_constraintTop_toBottomOf="@id/nasc"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/nasc" />
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
                 android:id="@+id/nacionalidade_label"
@@ -107,8 +126,8 @@
                 android:layout_marginTop="16dp"
                 android:text="Nacionalidade:"
                 android:textColor="#000000"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/data_nasc" />
+                app:layout_constraintTop_toBottomOf="@id/data_nasc"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <Spinner
                 android:id="@+id/Nacionalidade"
@@ -116,9 +135,9 @@
                 android:layout_height="48dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/fundo_campo"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/nacionalidade_label"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/nacionalidade_label" />
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
                 android:id="@+id/senha_texto"
@@ -127,21 +146,21 @@
                 android:layout_marginTop="16dp"
                 android:text="Senha:"
                 android:textColor="#000000"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/Nacionalidade" />
+                app:layout_constraintTop_toBottomOf="@id/Nacionalidade"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <EditText
                 android:id="@+id/senha"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/fundo_campo"
                 android:hint="Crie uma senha"
                 android:inputType="textPassword"
-                android:padding="15dp"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:padding="12dp"
+                app:layout_constraintTop_toBottomOf="@id/senha_texto"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/senha_texto" />
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <CheckBox
                 android:id="@+id/cbMostrarSenha"
@@ -149,8 +168,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="Exibir senha"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/senha" />
+                app:layout_constraintTop_toBottomOf="@id/senha"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
                 android:id="@+id/Confsenha_texto"
@@ -159,21 +178,21 @@
                 android:layout_marginTop="16dp"
                 android:text="Confirmar Senha:"
                 android:textColor="#000000"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cbMostrarSenha" />
+                app:layout_constraintTop_toBottomOf="@id/cbMostrarSenha"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <EditText
                 android:id="@+id/conf_senha"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/fundo_campo"
                 android:hint="Confirme sua senha"
                 android:inputType="textPassword"
-                android:padding="15dp"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:padding="12dp"
+                app:layout_constraintTop_toBottomOf="@id/Confsenha_texto"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/Confsenha_texto" />
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <CheckBox
                 android:id="@+id/cbMostrarConfirmarSenha"
@@ -181,65 +200,69 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="Exibir senha"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/conf_senha" />
+                app:layout_constraintTop_toBottomOf="@id/conf_senha"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
                 android:id="@+id/tvGenero"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="16dp"
                 android:text="Gênero:"
                 android:textColor="#000000"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cbMostrarConfirmarSenha" />
+                app:layout_constraintTop_toBottomOf="@id/cbMostrarConfirmarSenha"
+                app:layout_constraintStart_toStartOf="parent" />
 
-            <CheckBox
-                android:id="@+id/Feminino"
+            <RadioGroup
+                android:id="@+id/rgGenero"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Feminino"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvGenero" />
+                android:layout_marginTop="8dp"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/tvGenero"
+                app:layout_constraintStart_toStartOf="parent">
 
-            <CheckBox
-                android:id="@+id/Masculino"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Masculino"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/Feminino" />
+                <RadioButton
+                    android:id="@+id/Feminino"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Feminino" />
 
-            <CheckBox
-                android:id="@+id/NaoInformar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Prefiro não informar"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/Masculino" />
+                <RadioButton
+                    android:id="@+id/Masculino"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Masculino" />
 
-            <CheckBox
-                android:id="@+id/Outros"
-                android:layout_width="wrap_content"
+                <RadioButton
+                    android:id="@+id/NaoInformar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Prefiro não informar" />
+
+                <RadioButton
+                    android:id="@+id/Outros"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Outros" />
+
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/cadastrar"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Outros"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:backgroundTint="@color/black"
+                android:padding="15dp"
+                android:text="CADASTRAR"
+                android:textColor="#FFFFFF"
+                app:layout_constraintTop_toBottomOf="@id/rgGenero"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/NaoInformar" />
+                app:layout_constraintEnd_toEndOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
-    <Button
-        android:id="@+id/cadastrar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:backgroundTint="#F44336"
-        android:padding="15dp"
-        android:text="CADASTRAR"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

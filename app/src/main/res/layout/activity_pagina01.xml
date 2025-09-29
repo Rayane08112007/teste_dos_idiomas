@@ -6,36 +6,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.Pagina01"
-    android:background="@android:color/white">
+    android:background="@drawable/fundoapp">
 
     <TextView
-        android:id="@+id/txtTitle"
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bem-vindo!"
-        android:textSize="24sp"
+        android:layout_marginBottom="32dp"
+        android:text="SafeSpend"
+        android:textSize="58sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/btnLogin"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="32dp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnLogin"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="#4A90E2"
         android:text="Login"
-        app:layout_constraintTop_toBottomOf="@id/txtTitle"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="16dp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title" />
 
     <Button
         android:id="@+id/btnCadastro"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Cadastro"
+        android:backgroundTint="#4A90E2"
         app:layout_constraintTop_toBottomOf="@id/btnLogin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
