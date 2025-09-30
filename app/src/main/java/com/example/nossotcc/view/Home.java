@@ -3,6 +3,7 @@ package com.example.nossotcc.view;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -34,6 +35,7 @@ public class Home extends AppCompatActivity {
 
     private PieChart pieChart;
     private Button btnIrPlanilha;
+    private Button btnGastos;
 
 
     @Override
@@ -106,12 +108,14 @@ public class Home extends AppCompatActivity {
 //            Intent intent = new Intent(Home.this, Investimento.class);
 //            startActivity(intent);
 //        });
-//
-//        btnGastos.setOnClickListener(v -> {
-//            Intent intent = new Intent(Home.this, Planilha.class);
-//            startActivity(intent);
-//        });
-//
+
+        btnGastos = findViewById(R.id.btnGastos);
+
+        btnGastos.setOnClickListener(v -> {
+            Intent intent = new Intent(Home.this, Planilha.class);
+            startActivity(intent);
+   });
+
 //        btnFacilitador.setOnClickListener(v -> {
 //            Intent intent = new Intent(Home.this, Facilitador.class);
 //            startActivity(intent);
