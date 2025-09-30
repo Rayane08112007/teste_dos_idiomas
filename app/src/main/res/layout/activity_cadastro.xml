@@ -254,7 +254,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="24dp"
-                android:backgroundTint="@color/black"
+                android:backgroundTint="#4A90E2"
                 android:padding="15dp"
                 android:text="CADASTRAR"
                 android:textColor="#FFFFFF"

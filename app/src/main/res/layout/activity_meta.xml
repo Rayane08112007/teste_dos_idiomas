@@ -2,6 +2,7 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:layout_width="match_parent"
+    android:background="@drawable/fundoapp"
     android:layout_height="match_parent">
 
     <EditText
@@ -30,11 +31,13 @@
         android:id="@+id/btnAdicionar"
         android:text="Adicionar Meta"
         android:layout_width="match_parent"
+        android:backgroundTint="#4A90E2"
         android:layout_height="wrap_content"/>
 
     <Button
         android:id="@+id/btnListar"
         android:text="Listar Metas"
+        android:backgroundTint="#4A90E2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
@@ -49,6 +52,7 @@
     <Button
         android:id="@+id/btnRemover"
         android:text="Remover Meta"
+        android:backgroundTint="#4A90E2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
@@ -63,6 +67,7 @@
         android:id="@+id/btnVoltarHome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="#4A90E2"
         android:text="Voltar para Home"
         android:layout_marginTop="8dp"/>
 

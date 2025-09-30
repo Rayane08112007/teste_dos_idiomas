@@ -42,10 +42,4 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="#000000"/>
-    <Button
-        android:id="@+id/btnIrHome"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Voltar para Home"/>
-
 </LinearLayout>
