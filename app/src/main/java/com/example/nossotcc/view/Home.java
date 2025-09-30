@@ -50,11 +50,11 @@ public class Home extends AppCompatActivity {
         tvResultado = findViewById(R.id.ValorResultado);
         btnConverter = findViewById(R.id.btnConverter);
 
-//        Button btnMetas = findViewById(R.id.Metas);
-//        Button btnChatbot = findViewById(R.id.Chatbot);
-//        Button btnInvestimento = findViewById(R.id.btnInvestimento);
-//        Button btnGastos = findViewById(R.id.btnGastos);
-//        Button btnFacilitador = findViewById(R.id.btnFacilitador);
+        Button btnMetas = findViewById(R.id.Metas);
+        Button btnChatbot = findViewById(R.id.Chatbot);
+        Button btnInvestimento = findViewById(R.id.btnInvestimento);
+        Button btnGastos = findViewById(R.id.btnGastos);
+        Button btnFacilitador = findViewById(R.id.btnFacilitador);
 
 
 
@@ -94,32 +94,30 @@ public class Home extends AppCompatActivity {
             });
         });
 
-//        btnMetas.setOnClickListener(v -> {
-//            Intent intent = new Intent(Home.this, Metas.class);
-//            startActivity(intent);
-//        });
-//
-//        btnChatbot.setOnClickListener(v -> {
-//            Intent intent = new Intent(Home.this, ChatBot.class);
-//            startActivity(intent);
-//        });
-//
-//        btnInvestimento.setOnClickListener(v -> {
-//            Intent intent = new Intent(Home.this, Investimento.class);
-//            startActivity(intent);
-//        });
+        btnMetas.setOnClickListener(v -> {
+            Intent intent = new Intent(Home.this, MetaActivity.class);
+            startActivity(intent);
+        });
 
-        btnGastos = findViewById(R.id.btnGastos);
+        btnChatbot.setOnClickListener(v -> {
+            Intent intent = new Intent(Home.this, ChatBot.class);
+            startActivity(intent);
+        });
+
+        btnInvestimento.setOnClickListener(v -> {
+            Intent intent = new Intent(Home.this, Investimento.class);
+            startActivity(intent);
+        });
 
         btnGastos.setOnClickListener(v -> {
             Intent intent = new Intent(Home.this, Planilha.class);
             startActivity(intent);
-   });
+        });
 
-//        btnFacilitador.setOnClickListener(v -> {
-//            Intent intent = new Intent(Home.this, Facilitador.class);
-//            startActivity(intent);
-//        });
+        btnFacilitador.setOnClickListener(v -> {
+            Intent intent = new Intent(Home.this, Facilitador.class);
+            startActivity(intent);
+        });
 
         pieChart = findViewById(R.id.pieChart);
 

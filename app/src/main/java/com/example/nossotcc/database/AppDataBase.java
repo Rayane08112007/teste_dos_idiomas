@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 
-import com.example.nossotcc.datamodel.MetasDataModel;
+import com.example.nossotcc.datamodel.MetaDataModel;
 import com.example.nossotcc.datamodel.UsuarioDataModel;
 import com.example.nossotcc.model.Usuario;
 
@@ -59,13 +59,13 @@ public abstract class AppDataBase extends SQLiteOpenHelper {
     @Override
     public void onCreate (SQLiteDatabase db){
         db.execSQL(UsuarioDataModel.criarTabela());
-        db.execSQL(MetasDataModel.criarTabela());
+        db.execSQL(MetaDataModel.criarTabela());
     }
 
     @Override
     public void onUpgrade (SQLiteDatabase db,int oldVersion, int newVersion){
         db.execSQL("DROP TABLE IF EXISTS " + UsuarioDataModel.TABELA);
-        db.execSQL("DROP TABLE IF EXISTS " + MetasDataModel.TABELA);
+        db.execSQL("DROP TABLE IF EXISTS " + MetaDataModel.TABELA);
 //        db.execSQL("DROP TABLE IF EXISTS " + DocumentoDataModel.TABELA);
         onCreate(db);
     }
