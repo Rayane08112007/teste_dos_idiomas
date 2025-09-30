@@ -26,7 +26,7 @@ public class Login extends AppCompatActivity {
     EditText username, password;
     Button signIn;
     TextView signUp;
-    CheckBox exibirSenha;
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -80,14 +80,7 @@ public class Login extends AppCompatActivity {
                 startActivity(cadastro);
             }
         });
-        exibirSenha.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-            } else {
-                password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-            }
-            password.setSelection(password.getText().length());
-        });
+
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
