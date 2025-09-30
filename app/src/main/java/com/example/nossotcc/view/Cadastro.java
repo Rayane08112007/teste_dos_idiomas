@@ -1,12 +1,15 @@
 package com.example.nossotcc.view;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -16,6 +19,7 @@ import com.example.nossotcc.R;
 import com.example.nossotcc.controller.UsuarioController;
 import com.example.nossotcc.model.Usuario;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,7 +28,8 @@ public class Cadastro extends AppCompatActivity {
     private EditText nome, email, dataNasc, senha, confSenha;
     private Spinner nacionalidade;
     private RadioButton feminino, masculino, naoInformar, outros;
-    private Button cadastrar;
+    private CheckBox cbMostrarSenha, cbMostrarConfirmarSenha;
+    private Button cadastrar, btnVoltar;
     private UsuarioController usuarioController;
 
     @Override
@@ -32,18 +37,7 @@ public class Cadastro extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro);
 
-
-
-        Button btnVoltar = findViewById(R.id.btnVoltar);
-        btnVoltar.setOnClickListener(v -> {
-            Intent intent = new Intent(Cadastro.this, Pagina01.class);
-            startActivity(intent);
-            finish();
-        });
-
-
         initComponents();
-
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this,
@@ -54,6 +48,30 @@ public class Cadastro extends AppCompatActivity {
         nacionalidade.setAdapter(adapter);
 
         usuarioController = new UsuarioController(getApplicationContext());
+
+        dataNasc.setOnClickListener(v -> {
+            Calendar c = Calendar.getInstance();
+            int ano = c.get(Calendar.YEAR);
+            int mes = c.get(Calendar.MONTH);
+            int dia = c.get(Calendar.DAY_OF_MONTH);
+
+            DatePickerDialog dpd = new DatePickerDialog(Cadastro.this, (view, year, month, dayOfMonth) -> {
+                month += 1; // ajuste d
+                String diaStr = (dayOfMonth < 10 ? "0" : "") + dayOfMonth;
+                String mesStr = (month < 10 ? "0" : "") + month;
+                dataNasc.setText(year + "-" + mesStr + "-" + diaStr); // YYYY-MM-DD
+            }, ano, mes, dia);
+
+            dpd.show();
+        });
+
+
+        btnVoltar.setOnClickListener(v -> {
+            Intent intent = new Intent(Cadastro.this, Pagina01.class);
+            startActivity(intent);
+            finish();
+        });
+
 
         cadastrar.setOnClickListener(view -> {
             String nomeTxt = nome.getText().toString().trim();
@@ -73,15 +91,14 @@ public class Cadastro extends AppCompatActivity {
             paisParaMoeda.put("Índia", "INR");
             paisParaMoeda.put("Angola", "AOA");
 
-
             String genero = "";
             if (feminino.isChecked()) genero = "Feminino";
             else if (masculino.isChecked()) genero = "Masculino";
             else if (naoInformar.isChecked()) genero = "Prefiro não informar";
             else if (outros.isChecked()) genero = "Outros";
 
-
-            if (nomeTxt.isEmpty() || emailTxt.isEmpty() || senhaTxt.isEmpty()) {
+            // Validações
+            if (nomeTxt.isEmpty() || emailTxt.isEmpty() || senhaTxt.isEmpty() || dataNascTxt.isEmpty()) {
                 Toast.makeText(this, "Preencha todos os campos obrigatórios!", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -93,7 +110,6 @@ public class Cadastro extends AppCompatActivity {
                 Toast.makeText(this, "Usuário já existe!", Toast.LENGTH_SHORT).show();
                 return;
             }
-
 
             Usuario usuario = new Usuario();
             usuario.setUserNome(nomeTxt);
@@ -109,7 +125,7 @@ public class Cadastro extends AppCompatActivity {
                 SharedPreferences prefs = getSharedPreferences("user_prefs", MODE_PRIVATE);
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.putString("moeda_origem", moedaUsuario);
-                editor.putString("nomeUsuario", nome.getText().toString());
+                editor.putString("nomeUsuario", nomeTxt);
                 editor.apply();
 
                 Intent intent = new Intent(Cadastro.this, Home.class);
@@ -118,6 +134,19 @@ public class Cadastro extends AppCompatActivity {
             } else {
                 Toast.makeText(this, "Erro ao cadastrar usuário!", Toast.LENGTH_SHORT).show();
             }
+        });
+
+
+        cbMostrarSenha.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            senha.setInputType(isChecked ? android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                    : android.text.InputType.TYPE_CLASS_TEXT | android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            senha.setSelection(senha.getText().length());
+        });
+
+        cbMostrarConfirmarSenha.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            confSenha.setInputType(isChecked ? android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                    : android.text.InputType.TYPE_CLASS_TEXT | android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            confSenha.setSelection(confSenha.getText().length());
         });
     }
 
@@ -134,6 +163,10 @@ public class Cadastro extends AppCompatActivity {
         naoInformar = findViewById(R.id.NaoInformar);
         outros = findViewById(R.id.Outros);
 
+        cbMostrarSenha = findViewById(R.id.cbMostrarSenha);
+        cbMostrarConfirmarSenha = findViewById(R.id.cbMostrarConfirmarSenha);
+
         cadastrar = findViewById(R.id.cadastrar);
+        btnVoltar = findViewById(R.id.btnVoltar);
     }
 }

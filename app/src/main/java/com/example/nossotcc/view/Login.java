@@ -1,12 +1,12 @@
 package com.example.nossotcc.view;
 
-
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,13 +19,13 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.nossotcc.R;
 import com.example.nossotcc.controller.UsuarioController;
 
-
 public class Login extends AppCompatActivity {
 
-    UsuarioController controller;
-    EditText username, password;
-    Button signIn;
-    TextView signUp;
+    private UsuarioController controller;
+    private EditText username, password;
+    private Button signIn;
+    private TextView signUp;
+    private CheckBox exibir_senha;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -33,42 +33,48 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
+        findViewById(R.id.btnVoltar).setOnClickListener(v -> {
+            startActivity(new Intent(Login.this, Pagina01.class));
+            finish();
+        });
+
         initComponentes();
 
         controller = new UsuarioController(getApplicationContext());
 
-        signIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (validarCampos()) {
-                    String user = username.getText().toString().trim();
-                    String pass = password.getText().toString().trim();
 
-                    boolean isCheckUser = controller.usuarioeSenha(user, pass);
+        signIn.setOnClickListener(v -> {
+            if (validarCampos()) {
+                String user = username.getText().toString().trim().toLowerCase();
+                String pass = password.getText().toString().trim();
 
-                    if (isCheckUser) {
-                        Intent home = new Intent(Login.this, Home.class);
-                        startActivity(home);
-                        finish();
-                    } else {
+                boolean isCheckUser = controller.usuarioeSenha(user, pass);
 
-                        Toast.makeText(Login.this, "Email ou senha inválidos!", Toast.LENGTH_SHORT).show();
-                    }
-
+                if (isCheckUser) {
+                    startActivity(new Intent(Login.this, Home.class));
+                    finish();
                 } else {
-                    Toast.makeText(Login.this, "Preencha todos os campos!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login.this, "Email ou senha inválidos!", Toast.LENGTH_SHORT).show();
                 }
+            } else {
+                Toast.makeText(Login.this, "Preencha todos os campos!", Toast.LENGTH_SHORT).show();
             }
         });
 
 
-        signUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent cadastro = new Intent(Login.this, Cadastro.class);
-                startActivity(cadastro);
+        signUp.setOnClickListener(v -> startActivity(new Intent(Login.this, Cadastro.class)));
+
+
+        exibir_senha.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            } else {
+                password.setTransformationMethod(PasswordTransformationMethod.getInstance());
             }
+            password.setSelection(password.getText().length());
         });
+
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -82,12 +88,11 @@ public class Login extends AppCompatActivity {
                 !password.getText().toString().isEmpty();
     }
 
-    @SuppressLint("WrongViewCast")
     private void initComponentes() {
         username = findViewById(R.id.email_campo);
         password = findViewById(R.id.senha_campo);
         signIn   = findViewById(R.id.logar);
         signUp   = findViewById(R.id.register_text);
-
+        exibir_senha = findViewById(R.id.exibir_senha);
     }
 }

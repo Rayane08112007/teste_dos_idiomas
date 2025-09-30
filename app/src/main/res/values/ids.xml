@@ -13,4 +13,5 @@
     <item name="edtData" type="id" />
     <item name="edtFormaPagamento" type="id" />
     <item name="edtObservacoes" type="id" />
+    <item name="edtObs" type="id" />
 </resources>

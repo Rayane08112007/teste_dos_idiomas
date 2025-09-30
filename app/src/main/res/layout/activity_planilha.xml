@@ -8,7 +8,7 @@
         android:id="@+id/edtNome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nome"
+        android:hint="Descrição"
         android:minHeight="48dp" />
 
     <EditText
@@ -17,6 +17,34 @@
         android:layout_height="wrap_content"
         android:hint="Valor"
         android:inputType="numberDecimal"
+        android:minHeight="48dp" />
+
+    <EditText
+        android:id="@+id/edtCategoria"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Categoria"
+        android:minHeight="48dp" />
+
+    <EditText
+        android:id="@+id/edtData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Data (DD/MM/AAAA)"
+        android:minHeight="48dp" />
+
+    <EditText
+        android:id="@+id/edtFormaPagamento"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Forma de Pagamento"
+        android:minHeight="48dp" />
+
+    <EditText
+        android:id="@+id/edtObservacoes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Observações"
         android:minHeight="48dp" />
 
     <Button

@@ -2,8 +2,8 @@ package com.example.nossotcc.view;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -11,20 +11,21 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
 
 import com.example.nossotcc.R;
 import com.example.nossotcc.controller.ConversorController;
-import com.example.nossotcc.controller.DadoController;
+import com.example.nossotcc.controller.GastoController;
 import com.example.nossotcc.model.Conversao;
-import com.example.nossotcc.model.Dado;
+import com.example.nossotcc.model.Gasto;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Home extends AppCompatActivity {
 
@@ -34,6 +35,7 @@ public class Home extends AppCompatActivity {
     private String moedaOrigemUsuario;
 
     private PieChart pieChart;
+    private GastoController gastoController;
     private Button btnIrPlanilha;
     private Button btnGastos;
 
@@ -120,31 +122,45 @@ public class Home extends AppCompatActivity {
         });
 
         pieChart = findViewById(R.id.pieChart);
-
-
-        carregarGrafico();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
+        gastoController = new GastoController(this);
 
         carregarGrafico();
     }
-
 
     private void carregarGrafico() {
-        List<PieEntry> entries = new ArrayList<>();
-        for (Dado dado : DadoController.getDados()) {
-            entries.add(new PieEntry(dado.getValor(), dado.getNome()));
+        List<Gasto> gastos = gastoController.listar();
+
+        Map<String, Double> totaisPorCategoria = new HashMap<>();
+        Map<String, Integer> coresPorCategoria = new HashMap<>();
+
+        coresPorCategoria.put("Alimentação", Color.parseColor("#FF6384"));
+        coresPorCategoria.put("Transporte", Color.parseColor("#36A2EB"));
+        coresPorCategoria.put("Lazer", Color.parseColor("#FFCE56"));
+        coresPorCategoria.put("Educação", Color.parseColor("#4CAF50"));
+        coresPorCategoria.put("Saúde", Color.parseColor("#9C27B0"));
+        coresPorCategoria.put("Outros", Color.parseColor("#FF9800"));
+
+        for (Gasto g : gastos) {
+            double total = totaisPorCategoria.getOrDefault(g.getCategoria(), 0.0);
+            totaisPorCategoria.put(g.getCategoria(), total + g.getValor());
         }
 
-        PieDataSet dataSet = new PieDataSet(entries, "Dados da Planilha");
-        PieData pieData = new PieData(dataSet);
-        pieChart.setData(pieData);
-        pieChart.invalidate(); // força atualização
-        pieChart.animateY(1000);
+        ArrayList<PieEntry> entries = new ArrayList<>();
+        ArrayList<Integer> colors = new ArrayList<>();
+
+        for (String categoria : totaisPorCategoria.keySet()) {
+            entries.add(new PieEntry(totaisPorCategoria.get(categoria).floatValue(), categoria));
+            colors.add(coresPorCategoria.getOrDefault(categoria, Color.GRAY));
+        }
+
+        PieDataSet dataSet = new PieDataSet(entries, "Gastos por Categoria");
+        dataSet.setColors(colors);
+
+        PieData data = new PieData(dataSet);
+        pieChart.setData(data);
+        pieChart.invalidate();
     }
-    }
+}
+
 
 
