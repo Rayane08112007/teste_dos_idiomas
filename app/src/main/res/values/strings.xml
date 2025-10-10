@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">NossoTCC</string>
 
+    <string name="desc_btn_idioma">Mudar idioma</string>
+
+
     <string-array name="paises">
         <item>Venezuelanos</item>
         <item>Haitianos</item>
