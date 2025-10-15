@@ -1,4 +1,4 @@
-package com.example.nossotcc.view;
+package com.example.nossotcc.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;

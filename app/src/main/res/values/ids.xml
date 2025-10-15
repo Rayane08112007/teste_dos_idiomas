@@ -14,4 +14,9 @@
     <item name="edtFormaPagamento" type="id" />
     <item name="edtObservacoes" type="id" />
     <item name="edtObs" type="id" />
+    <item name="tvText" type="id" />
+    <item name="etQuestion" type="id" />
+    <item name="btnSave" type="id" />
+    <item name="etAnswer" type="id" />
+    <item name="tvAuthor" type="id" />
 </resources>

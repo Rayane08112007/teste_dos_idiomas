@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.nossotcc.R;
 
+import com.example.nossotcc.adapter.PlanilhaAdapter;
 import com.example.nossotcc.controller.GastoController;
 import com.example.nossotcc.model.Gasto;
 import java.util.List;

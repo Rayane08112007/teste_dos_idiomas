@@ -14,14 +14,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NossoTCC">
         <activity
+            android:name=".controller.TrainingActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.Facilitador"
             android:exported="false" />
-
         <activity
             android:name=".view.Investimento"
             android:exported="false" />
         <activity
-            android:name=".view.ChatBot"
+            android:name=".view.Pagina01"
             android:exported="false" />
         <activity
             android:name=".view.MetaActivity"
@@ -29,11 +31,9 @@
         <activity
             android:name=".view.Planilha"
             android:exported="false" />
-
         <activity
-        android:name=".view.Home"
-        android:exported="true" />
-
+            android:name=".view.Home"
+            android:exported="true" />
         <activity
             android:name=".view.Cadastro"
             android:exported="false" />
@@ -41,7 +41,7 @@
             android:name=".view.Login"
             android:exported="false" />
         <activity
-            android:name=".view.Pagina01"
+            android:name=".view.ChatBot"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
